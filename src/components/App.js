@@ -1,20 +1,23 @@
+import React, { useState } from "react";
 import video from "../data/video.js";
+import VideoPlayer from "./VideoPlayer.js";
+import Details from "./Details.js";
+import Comments from "./Comments.js";
 
 function App() {
-  console.log("Here's your data:", video);
+  const [showComments, setShowComments] = useState(true);
 
   return (
     <div className="App">
-      <iframe
-        width="919"
-        height="525"
-        src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-        frameBorder="0"
-        allowFullScreen
-        title="Thinking in React"
-      />
+      <VideoPlayer embedUrl={video.embedUrl} title={video.title} />
+      <Details title={video.title} views={video.views} createdAt={video.createdAt} upvotes={video.upvotes} downvotes={video.downvotes} />
+      <button onClick={() => setShowComments(!showComments)}>{showComments ? "Hide Comments" : "Show Comments"}</button>
+      <hr></hr>
+         <Comments comments={video.comments} showComments={showComments} />
     </div>
   );
 }
 
 export default App;
+
+
